@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="dicomParser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="read.js"></script>
+    <script type="text/javascript" src="xtk.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>DICOM Information</title>
+    <style>
+        #dropZone {
+            width: 100%;
+            background-color: #F0F0F0;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="page-header">
+            <h1>Getting Started</h1>
+            <p class="lead">
+                This is a walkthrough of how to use the dicomParser library.
+            </p>
+            <p>
+                This example shows how to use dicomParser to load a DICOM File and access its contents. Drag a DICOM P10 file into the region below to see a select few attributes from it. Use your browser's view source feature to see how this example was implemented
+                along with source code comments.
+            </p>
+            <strong>Use of this example require IE10+ or any other modern browser.</strong>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div id="dropZone">
+
+                    <div class="panel panel-default ">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Example Output</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    Parse Error: <span id="parseError"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    SOP Instance UID: <span id="sopInstanceUid"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    Patient Id: <span id="patientId"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    Other Patient Ids: <span id="otherPatientIds"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    Rows: <span id="rows"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    ReferencedSOPClassUID: <span id="referencedSOPClassUID"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    ImagePositionPatient:
+                                </div>
+                                <div class="col-xs-3">
+                                    <span id="imagePositionPatientX"></span>
+                                </div>
+                                <div class="col-xs-3">
+                                    <span id="imagePositionPatientY"></span>
+                                </div>
+                                <div class="col-xs-3">
+                                    <span id="imagePositionPatientZ"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    ImagePositionPatient # of values: <span id="imagePositionPatientNumValues"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    SopInstanceUid Data Offset and Length: <span id="sopInstanceUidDataOffsetAndLength"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    SopInstanceUid VR: <span id="sopInstanceUidVR"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id="sliceX" style="border-top: 2px solid yellow; background-color: #000; width: 50%; height: 500px;"></div>
+</body>
+
+</html>

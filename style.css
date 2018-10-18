@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900');
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.container {
+    width: 1280px;
+    margin: 0 auto;
+}
+
+
+/* Menu Bar */
+
+.navigation-bar {
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    background-color: #374a61;
+    color: white;
+    z-index: 99;
+}
+
+.navigation-bar {
+    display: flex;
+    align-items: center;
+}
+
+.navigation-bar .container {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.logo img {
+    width: 60px;
+}
+
+.menu-items {
+    display: flex;
+    height: 100%;
+    text-transform: uppercase;
+    margin-left: 20px;
+}
+
+.item {
+    display: flex;
+    height: 100%;
+}
+
+.item {
+    -webkit-transition: background-color .3s ease;
+    -moz-transition: background-color .3s ease;
+    -o-transition: background-color .3s ease;
+    transition: background-color .3s ease;
+}
+
+.item:hover {
+    color: #374a61;
+    background-color: #ffffff;
+}
+
+.item:hover a {
+    color: #374a61;
+}
+
+.item a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #ffffff;
+    padding: 0 20px;
+}
+
+.item a {
+    -webkit-transition: color .3s ease;
+    -moz-transition: color .3s ease;
+    -o-transition: color .3s ease;
+    transition: color .3s ease;
+}
+
+.item a {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+
+/* Main Site */
+
+.slider {
+    position: relative;
+    width: 50%;
+    height: 100vh;
+}
+
+.slider-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 10;
+}
+
+.slider-item {
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+}
