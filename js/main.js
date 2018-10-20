@@ -1,68 +1,3 @@
-// window.onload = function() {
-
-//     var prefix = './dcm/vhf.';
-//     var prefix1 = './dcm-1/dicom-';
-//     var dicom = [];
-
-//     // for (var i = 1; i < 66; i++) {
-//     //     var finalString = '';
-//     //     var temp = i.toString();
-//     //     finalString = prefix + i + '.dcm';
-//     //     dicom.push(finalString);
-//     // }
-
-//     for (var i = 1; i < 209; i++) {
-//         var finalString = '';
-//         var temp = i.toString();
-//         finalString = prefix1 + i + '.dcm';
-//         dicom.push(finalString);
-//     }
-
-//     console.log(dicom);
-
-//     // Volume //
-
-//     volume = new X.volume();
-//     volume.file = dicom;
-
-//     // X-axis //
-//     sliceX = new X.renderer2D();
-//     sliceX.container = 'sliceX';
-//     sliceX.orientation = 'AXIAL';
-//     sliceX.init();
-//     sliceX.add(volume);
-//     sliceX.render();
-
-//     // Y-axis //
-//     sliceY = new X.renderer2D();
-//     sliceY.container = 'sliceY';
-//     sliceY.orientation = 'SAGITTAL';
-//     sliceY.init();
-
-//     // Z-axis //
-//     sliceZ = new X.renderer2D();
-//     sliceZ.container = 'sliceZ';
-//     sliceZ.orientation = 'SAGITTAL';
-//     sliceZ.init();
-
-//     // 3D rendering //
-//     ren3d = new X.renderer3D();
-//     ren3d.container = '3d';
-//     ren3d.init();
-
-//     sliceX.onShowtime = function() {
-
-//         sliceY.add(volume);
-//         sliceY.render();
-//         sliceZ.add(volume);
-//         sliceZ.render();
-//         ren3d.add(volume);
-//         ren3d.render();
-
-//     };
-
-// };
-
 var files = [];
 var _dataArray = [];
 var _filenames = [];
@@ -105,6 +40,7 @@ $(document).ready(function() {
             threeD = new X.renderer3D();
             threeD.container = '3d';
             threeD.init();
+            threeD.camera.position = [0, 400, 0];
         } catch (Exception) {
 
             // no webgl on this machine
@@ -116,19 +52,18 @@ $(document).ready(function() {
         // .. for the X orientation
         sliceX = new X.renderer2D();
         sliceX.container = 'sliceX';
-        sliceX.orientation = 'X';
+        sliceX.orientation = 'AXIAL';
         sliceX.init();
         // .. for Y
         sliceY = new X.renderer2D();
         sliceY.container = 'sliceY';
-        sliceY.orientation = 'Y';
+        sliceY.orientation = 'SAGITTAL';
         sliceY.init();
         // .. and for Z
         sliceZ = new X.renderer2D();
         sliceZ.container = 'sliceZ';
-        sliceZ.orientation = 'Z';
+        sliceZ.orientation = 'CORONAL';
         sliceZ.init();
-
         // we create the X.volume container and attach all DICOM files
         v = new X.volume();
 
@@ -153,7 +88,7 @@ function recursiveLoading(idx) {
             //_filenames.push(file.name + ".DCM");
             //_dataArray.push(arrayBuffer);
             counter--;
-
+            // $('.files-bar').append('<div id="each' + idx + '" class="file"></div>');
             recursiveLoading(idx + 1);
         };
         reader.readAsArrayBuffer(files[idx]);
@@ -168,6 +103,7 @@ function recursiveLoading(idx) {
         // formats like MGH/MGZ
         volume.file = _filenames;
         volume.filedata = _dataArray;
+        //
         // we also attach a label map to show segmentations on a slice-by-slice base
         //volume.labelmap.file = 'http://x.babymri.org/?seg.nrrd';
         // .. and use a color table to map the label map values to colors
@@ -189,6 +125,13 @@ function recursiveLoading(idx) {
         // just before the first rendering attempt
         sliceX.onShowtime = function() {
 
+            console.log(volume.image[0]);
+            var data = new Uint8Array(volume.image[0].arrayBuffer);
+            var imageCanvas = document.getElementById('canvas1');
+            var ctx = imageCanvas.getContext('2d');
+            var imageData = ctx.getImageData(0, 0, 150, 150);
+            ctx.putImageData(imageData, 150, 150);
+
             //
             // add the volume to the other 3 renderers
             //
@@ -196,8 +139,17 @@ function recursiveLoading(idx) {
             sliceY.render();
             sliceZ.add(volume);
             sliceZ.render();
-
+            //
             if (_webGLFriendly) {
+                // 3d configuration
+                volume.volumeRendering = true;
+                volume.lowerThreshold = 80;
+                volume.windowLower = 115;
+                volume.windowHigh = 360;
+                volume.minColor = [0, 0.06666666666666667, 1];
+                volume.maxColor = [0.5843137254901961, 1, 0];
+                volume.opacity = 0.2;
+                // 3d render
                 threeD.add(volume);
                 threeD.render();
             }

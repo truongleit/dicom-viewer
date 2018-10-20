@@ -348,6 +348,9 @@ img.brand-devices {
     height: 100%;
     border-right: 1px solid #fff;
     float: left;
+    /* display: flex;
+    flex-wrap: wrap; */
+    overflow-y: scroll;
 }
 
 .three-dimemsion {
@@ -376,4 +379,12 @@ img.brand-devices {
 .dg.main {
     position: absolute;
     right: 0;
+}
+
+.file {
+    width: 150px;
+    height: 150px;
+    margin: 2px;
+    border: 1px solid #fff;
+    float: left;
 }
